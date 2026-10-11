@@ -1,0 +1,25 @@
+
+metadata_dir = "/var/lib/garage/meta"   # small + hot: put on SSD
+data_dir     = "/var/lib/garage/data"   # the actual backup blocks
+db_engine    = "lmdb"
+
+# Crash safety (slower writes, safer data). Right trade-off for a backup target.
+metadata_fsync = true
+data_fsync     = true
+
+# Periodic snapshots of the metadata DB: a restore point if it is ever corrupted.
+metadata_auto_snapshot_interval = "6h"
+
+# 1 = no replication (single node).
+replication_factor = 1
+
+# Node-to-node RPC. Loopback only: nothing else talks to it on a single node.
+rpc_bind_addr = "127.0.0.1:3901"
+
+[s3_api]
+# Garage enforces this region, so clients MUST sign with exactly "garage".
+s3_region     = "garage"
+api_bind_addr = "0.0.0.0:3900"   
+
+[admin]
+api_bind_addr = "127.0.0.1:3903"

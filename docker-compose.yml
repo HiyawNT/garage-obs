@@ -1,0 +1,11 @@
+services:
+  garage:
+    image: dxflrs/garage:v2.3.0   
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:3900:3900"     # S3 API, localhost only; host nginx proxies to it
+    volumes:
+      - ./garage.toml:/etc/garage.toml:ro
+      - ./meta:/var/lib/garage/meta
+      - ./data:/var/lib/garage/data
